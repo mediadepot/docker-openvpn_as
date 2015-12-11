@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
-#first run, move the application files
-if [ ! -f "/srv/openvpn/app/bin/ovpn-init" ]; then
+DEPOT_USER=$(curl http://rancher-metadata/2015-07-25/self/host/labels/depot.user)
+DEPOT_PASS=$(curl http://rancher-metadata/2015-07-25/self/host/labels/depot.password)
+
+if [ ! -f "/usr/local/openvpn_as/etc/as.conf" ]; then
     ln -s /usr/local/openvpn_as /srv/openvpn/app
     mkdir -p /srv/openvpn/data/tmp
     mkdir -p /srv/openvpn/data/sock
 
-	chown -R depot:depot /srv/openvpn
+    confd -onetime -backend rancher -prefix /2015-07-25
+    chown -R $DEPOT_USER:$DEPOT_USER /srv/openvpn
 
 	cd /usr/local/openvpn_as/scripts/
     ./confdba -mk "admin_ui.https.ip_address" -v "all"
@@ -23,6 +26,8 @@ if [ ! -f "/srv/openvpn/app/bin/ovpn-init" ]; then
     ./confdba -mk "vpn.server.daemon.udp.port" -v "60001"
 
     ./confdba -s
+
+    echo "$DEPOT_USER:$DEPOT_PASS" | chpasswd
 fi
 
 rm -rf /usr/local/openvpn_as/tmp/* /usr/local/openvpn_as/etc/tmp/* /usr/local/openvpn_as/etc/sock/*

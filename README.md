@@ -14,11 +14,3 @@ The following ports must be mapped, when running container
  - 60000 #tcp listen
  - 60001 #udp listen
  
-# Volumes
-The following volumes must be mapped, when running container 
-
-- /srv/couchpotato/config
-- /srv/couchpotato/data
-- /mnt/movies
-- /mnt/downloads/[Movies]:/mnt/downloads
-- /mnt/blackhole/[Movies]:/mnt/blackhole

@@ -3,7 +3,8 @@
   "AttachStdin": true,
   "OpenStdin": true,
   "HostConfig": {
-    "PortBindings":{ "943/tcp": [{ "HostIp": "0.0.0.0", "HostPort": "1943" }] }
+    "PortBindings":{ "943/tcp": [{ "HostIp": "0.0.0.0", "HostPort": "1943" }] },
+    "Privileged": true
   },
   "Env": [
     "DEPOT_USER=depot",

@@ -1,0 +1,6 @@
+[template]
+src = "as.conf.tmpl"
+dest = "/usr/local/openvpn_as/etc/as.conf"
+keys = [
+	"/self/host/labels/depot.user"
+]
